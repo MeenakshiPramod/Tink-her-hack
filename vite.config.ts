@@ -7,4 +7,5 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
+  base: './',  // Use './' if deploying in the root, otherwise '/your-repo-name/'
 });
