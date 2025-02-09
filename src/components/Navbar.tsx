@@ -1,9 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CircleDollarSign, Menu, X } from 'lucide-react';
+import Cookies from 'js-cookie';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
+  const navigate = useNavigate();
+  const username = Cookies.get('username');
+
+  const handleSignInClick = () => {
+    navigate('/signin');
+  };
 
   return (
     <nav className="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50">
@@ -25,9 +32,21 @@ export default function Navbar() {
             <Link to="/insights" className="text-gray-700 hover:text-orange-500 px-3 py-2 rounded-md text-sm font-medium transition-colors">
               AI Insights
             </Link>
-            <button className="bg-gradient-to-r from-orange-500 to-amber-500 text-white px-6 py-2 rounded-xl text-sm font-medium hover:from-orange-600 hover:to-amber-600 transition-all duration-300 transform hover:scale-105 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
-              Sign In
-            </button>
+            <Link to="/chatbot" className="text-gray-700 hover:text-orange-500 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+              Chatbot
+            </Link>
+            {username ? (
+              <span className="text-gray-700 px-3 py-2 rounded-md text-sm font-medium">
+                Welcome, {username}
+              </span>
+            ) : (
+              <button
+                onClick={handleSignInClick}
+                className="bg-gradient-to-r from-orange-500 to-amber-500 text-white px-6 py-2 rounded-xl text-sm font-medium hover:from-orange-600 hover:to-amber-600 transition-all duration-300 transform hover:scale-105 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+              >
+                Sign In
+              </button>
+            )}
           </div>
 
           <div className="flex items-center sm:hidden">
@@ -50,9 +69,21 @@ export default function Navbar() {
             <Link to="/insights" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-orange-500 rounded-md transition-colors">
               AI Insights
             </Link>
-            <button className="mt-2 w-full bg-gradient-to-r from-orange-500 to-amber-500 text-white px-4 py-2 rounded-xl font-medium hover:from-orange-600 hover:to-amber-600 transition-all duration-300">
-              Sign In
-            </button>
+            <Link to="/chatbot" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-orange-500 rounded-md transition-colors">
+              Chatbot
+            </Link>
+            {username ? (
+              <span className="block px-3 py-2 text-base font-medium text-gray-700">
+                Welcome, {username}
+              </span>
+            ) : (
+              <button
+                onClick={handleSignInClick}
+                className="mt-2 w-full bg-gradient-to-r from-orange-500 to-amber-500 text-white px-4 py-2 rounded-xl font-medium hover:from-orange-600 hover:to-amber-600 transition-all duration-300"
+              >
+                Sign In
+              </button>
+            )}
           </div>
         </div>
       )}
